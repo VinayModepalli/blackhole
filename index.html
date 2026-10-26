@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kerr Black Hole — GR Simulator</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="glError"></div>
+
+  <header>
+    <h1>Kerr Black Hole</h1>
+    <nav>
+      <button class="tab active" data-view="rayView">Ray-traced view</button>
+      <button class="tab" data-view="orbitView">Orbit lab</button>
+    </nav>
+    <div class="radii">
+      <span>r₊ <b id="rH"></b></span>
+      <span>ISCO <b id="rIsco"></b></span>
+      <span>ISCO(retro) <b id="rIscoR"></b></span>
+      <span>photon <b id="rPh"></b></span>
+      <span>ergo <b id="rErgo"></b></span>
+      <span class="muted">(units of GM/c²)</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="rayView" class="view active">
+      <canvas id="rtCanvas"></canvas>
+      <div class="hint">drag to orbit the camera · scroll to zoom</div>
+    </section>
+
+    <section id="orbitView" class="view">
+      <canvas id="orbitCanvas"></canvas>
+      <div class="hint">click &amp; drag anywhere to launch a particle</div>
+      <div id="orbitReadout"></div>
+    </section>
+
+    <aside id="panel">
+      <div class="group">
+        <label>spin a / M <output id="spinVal"></output></label>
+        <input id="spin" type="range" min="0" max="0.998" step="0.001" value="0.9" />
+      </div>
+
+      <div class="group" data-for="rayView">
+        <label>render scale</label>
+        <input id="quality" type="range" min="0.3" max="1" step="0.05" value="0.6" />
+        <label>integration steps</label>
+        <input id="steps" type="range" min="150" max="600" step="10" value="320" />
+        <label>focal length</label>
+        <input id="fov" type="range" min="0.8" max="3.5" step="0.1" value="1.6" />
+        <label class="check"><input id="disk" type="checkbox" checked /> accretion disk</label>
+        <label class="check"><input id="cine" type="checkbox" checked /> cinematic look (Gargantua)</label>
+        <label class="check"><input id="spots" type="checkbox" checked /> orbiting hot spots</label>
+        <label class="check"><input id="pause" type="checkbox" /> pause</label>
+      </div>
+
+      <div class="group" data-for="orbitView">
+        <label>presets</label>
+        <div class="presets">
+          <button data-preset="isco">ISCO</button>
+          <button data-preset="precessing">precessing</button>
+          <button data-preset="zoomwhirl">zoom-whirl</button>
+          <button data-preset="plunge">plunge</button>
+          <button data-preset="framedrag">frame drag</button>
+          <button data-preset="retrograde">retro vs pro</button>
+        </div>
+        <label>time speed</label>
+        <input id="orbitSpeed" type="range" min="0.1" max="4" step="0.1" value="1" />
+        <button id="clearOrbits" class="wide">clear particles</button>
+      </div>
+
+      <details class="group physics">
+        <summary>what's real here?</summary>
+        <p><b>Exact:</b> the Kerr metric (Kerr–Schild form) — an exact solution of
+        Einstein's vacuum field equations. Photon and particle paths are its
+        geodesics, integrated numerically (RK4). Lensing, the shadow, the photon
+        ring, frame dragging, periapsis precession, Doppler beaming (g⁴) and
+        gravitational redshift all <i>emerge</i> from the equations.</p>
+        <p><b>Modeled:</b> the disk is an idealized thin disk (Novikov–Thorne-style
+        temperature profile, Keplerian circular orbits, procedural turbulence for
+        texture). Real disks need magnetohydrodynamics on supercomputers.</p>
+        <p><b>Display:</b> intensities are tone-mapped — a real disk's dynamic
+        range would blind you.</p>
+        <p><b>Cinematic look:</b> mutes Doppler beaming and color shifts and
+        uses a warm gold palette — the same artistic liberty the
+        <i>Interstellar</i> team took for Gargantua. Untick it for the
+        physically colored disk: blazing blue-white on the approaching side,
+        dim red on the receding side.</p>
+      </details>
+    </aside>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
