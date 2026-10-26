@@ -1,0 +1,137 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #05060a;
+  --panel: #0d1017;
+  --border: #1e2530;
+  --text: #cbd5e1;
+  --accent: #7dd3fc;
+  --muted: #64748b;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+#glError {
+  display: none;
+  position: fixed;
+  inset: 40% 20% auto;
+  z-index: 10;
+  background: #7f1d1d;
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+h1 { font-size: 16px; font-weight: 600; color: #f1f5f9; }
+
+nav { display: flex; gap: 6px; }
+
+.tab {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.tab.active { color: var(--accent); border-color: var(--accent); }
+
+.radii {
+  margin-left: auto;
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.radii b { color: var(--text); font-weight: 600; margin-left: 3px; }
+.muted { color: var(--muted); }
+
+main {
+  display: flex;
+  height: calc(100% - 49px);
+}
+
+.view {
+  display: none;
+  position: relative;
+  flex: 1;
+}
+.view.active { display: block; }
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.hint {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+#orbitReadout {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 12px;
+  font-family: ui-monospace, monospace;
+  pointer-events: none;
+}
+#orbitReadout .row { display: flex; gap: 14px; padding: 1px 0; }
+
+#panel {
+  width: 250px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group { display: flex; flex-direction: column; gap: 7px; }
+.group label { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; }
+.group output { color: var(--accent); font-family: ui-monospace, monospace; }
+
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+
+.check { flex-direction: row !important; gap: 8px; align-items: center; color: var(--text) !important; }
+
+.presets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.presets button, .wide {
+  background: #151a24;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.presets button:hover, .wide:hover { border-color: var(--accent); color: var(--accent); }
+
+.physics summary { cursor: pointer; color: var(--accent); font-size: 13px; }
+.physics p { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.physics b { color: var(--text); }
